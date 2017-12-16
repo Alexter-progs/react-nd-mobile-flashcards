@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 
 const dummies = [
     { key: 1, text: 'Dummy 1', count: 2},
@@ -11,14 +11,15 @@ const dummies = [
 ]
 
 export default class DeckList extends Component {
-
     renderItem = ({item}) => {
         return(
             <View key={item.text}>
-                <View style={{flex: 1, height: 50, alignItems: 'center', borderStyle: 'solid', borderBottomWidth: 1, borderColor: '#123321', paddingTop: 50, paddingBottom: 50}}>
-                    <Text>{item.text}</Text>
-                    <Text>{item.count} cards</Text>
-                </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.text})}>
+                    <View style={{flex: 1, height: 50, alignItems: 'center', borderStyle: 'solid', borderBottomWidth: 1, borderColor: '#123321', paddingTop: 50, paddingBottom: 50}}>
+                        <Text>{item.text}</Text>
+                        <Text>{item.count} cards</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }
