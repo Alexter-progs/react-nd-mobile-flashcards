@@ -8,6 +8,7 @@ import { Constants } from 'expo'
 import DeckList from "./components/DeckList";
 import NewDeck from "./components/NewDeck";
 import Deck from "./components/Deck";
+import NewCard from './components/NewCard'
 
 const Tabs = TabNavigator({
     DeckList: {
@@ -55,6 +56,9 @@ const MainNavigator = StackNavigator({
             //    backgroundColor: purple
             //}
         }
+    },
+    NewCard: {
+        screen: NewCard
     }
 })
 
