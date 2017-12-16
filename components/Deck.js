@@ -14,7 +14,7 @@ export default class DeckList extends Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckId: this.props.navigation.state.params.deckTitle})}>
                     <Text>Add new card</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz')}>
                     <Text>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
