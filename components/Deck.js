@@ -7,7 +7,6 @@ export default class DeckList extends Component {
     });
 
     render() {
-        console.log(this);
         return(
             <View>
                 <Text>Deck</Text>
