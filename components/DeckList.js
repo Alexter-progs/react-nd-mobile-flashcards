@@ -1,33 +1,54 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 
-const dummies = [
-    { key: 1, text: 'Dummy 1', count: 2},
-    { key: 2,text: 'Dummy 2', count: 5},
-    { key: 3,text: 'Dummy 3', count: 89},
-    { key: 4,text: 'Dummy 4', count: 12},
-    { key: 5,text: 'Dummy 5', count: 14},
-    { key: 6,text: 'Dummy 6', count: 5},
-]
+import { getDecks } from '../storage/DAL'
 
 export default class DeckList extends Component {
     renderItem = ({item}) => {
+        console.log(item)
         return(
-            <View key={item.text}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.text})}>
+            <View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.title})}>
                     <View style={{flex: 1, height: 50, alignItems: 'center', borderStyle: 'solid', borderBottomWidth: 1, borderColor: '#123321', paddingTop: 50, paddingBottom: 50}}>
-                        <Text>{item.text}</Text>
-                        <Text>{item.count} cards</Text>
+                        <Text>{item.title}</Text>
+                        <Text>{item.questions.length} cards</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         )
     }
 
+    state = {
+        decks: []
+    }
+
+    componentDidMount() {
+        getDecks().then(decks => {
+            let keys = Object.keys(decks)
+
+            let mappedDecks = keys.map((key) => {
+                //Virtualized list warns if no key prop is presented on the data object for flat list
+                decks[key].key = key
+                return decks[key]
+            })
+
+            this.setState(() => ({
+                decks: mappedDecks
+            }))
+        })
+    }
+
     render() {
+        if(this.state.decks.length === 0) {
+            return (
+                <View>
+                    <Text>No decks</Text>
+                </View>
+            )
+        }
         return(
             <View style={{flex: 1}}>
-                <FlatList data={dummies} renderItem={this.renderItem}/>
+                <FlatList data={this.state.decks} renderItem={this.renderItem}/>
             </View>
         )
     }
