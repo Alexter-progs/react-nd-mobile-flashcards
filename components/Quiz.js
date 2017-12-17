@@ -74,7 +74,7 @@ export default class NewCard extends Component {
 
     render() {
         if(this.state.isQuizCompleted) {
-            const answerPercentile = Math.fround((this.state.correctAnswersCount / this.state.questionsCount) * 100)
+            const answerPercentile = ((this.state.correctAnswersCount / this.state.questionsCount) * 100).toFixed(1)
             return(
                 <View>
                     <Text>Questions answered count: {this.state.questionsAnsweredCount}</Text>
