@@ -24,7 +24,7 @@ import { connect } from 'react-redux'
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckTitle: this.props.deck.title})}>
                     <Text>Add new card</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.handleQuizStart}>
+                <TouchableOpacity disabled={this.props.deck.questions.length > 0 ? false : true} onPress={this.handleQuizStart}>
                     <Text>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
