@@ -59,6 +59,15 @@ class Quiz extends Component {
         }
     }
 
+    restartQuiz = () => {
+        this.setState(() => ({
+            currentQuestionNumber: 1,
+            correctAnswersAmount: 0,
+            currentQuestionIndex: 0,
+            isQuizCompleted: false
+        }))
+    }
+
     render() {
         const questionsAmount = this.props.questions.length
 
@@ -72,6 +81,12 @@ class Quiz extends Component {
                     <Text>Is quiz completed: {this.state.isQuizCompleted}</Text>
                     <Text>Questions count: {this.state.questionsAmount}</Text>
                     <Text>{answerPercentile}%</Text>
+                    <TouchableOpacity onPress={this.restartQuiz}>
+                        <Text>Restart quiz</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {this.props.navigation.goBack()}}>
+                        <Text>Go back</Text>
+                    </TouchableOpacity>
                 </View>
             )
         }
