@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native'
 const FLASH_CARDS_APP_KEY = 'flashcardsapp'
 
 export function saveDeck(title) {
-    AsyncStorage.mergeItem(FLASH_CARDS_APP_KEY, JSON.stringify({
+    return AsyncStorage.mergeItem(FLASH_CARDS_APP_KEY, JSON.stringify({
         [title]: {
             title,
             questions: []
@@ -20,8 +20,8 @@ export function getDecks() {
 }
 
 export function addCardToDeck(key, card) {
-    getDecks(key).then(decks => {
-        AsyncStorage.setItem(FLASH_CARDS_APP_KEY, JSON.stringify({
+    return getDecks(key).then(decks => {
+        return AsyncStorage.setItem(FLASH_CARDS_APP_KEY, JSON.stringify({
             ...decks,
             [key]: {
                 ...decks[key],
@@ -37,5 +37,5 @@ export function addCardToDeck(key, card) {
 }
 
 export function removeDecks() {
-    AsyncStorage.removeItem(FLASH_CARDS_APP_KEY);
+    return AsyncStorage.removeItem(FLASH_CARDS_APP_KEY);
 }
