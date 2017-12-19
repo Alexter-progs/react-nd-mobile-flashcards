@@ -16,7 +16,7 @@ class NewDeck extends Component {
         saveDeck(title).then(() => {
             return this.props.addDeck(title)
         }).then(() => {
-            this.props.navigation.navigate('Home')
+            this.props.navigation.navigate('Deck', {deckTitle: title})
         })
         
     }
