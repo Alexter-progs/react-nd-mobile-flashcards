@@ -18,11 +18,12 @@ export default class NewCard extends Component {
     }
 
     componentDidMount() {
+        const questions = this.props.navigation.state.params.questions
         this.setState((state) => ({
             ...state,
-            questionsCount: state.cards.length,
+            questionsCount: questions.length,
             currentQuestionIndex: 0,
-            cards: this.props.navigation.state.params.questions
+            cards: questions
         }))
     }
 
