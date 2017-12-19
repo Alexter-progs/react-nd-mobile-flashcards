@@ -4,20 +4,13 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import QuizItem from './QuizItem'
 
 export default class NewCard extends Component {
-    static navigationOptions = {
+    static navigationOptions = ({ navigation }) => ({
         title: 'Quiz'
-    }
+    });
 
     state = {
         questionsCount: 0,
-        cards: [
-            { question: '1', answer: '6'},
-            { question: '2', answer: '5'},
-            { question: '3', answer: '4'},
-            { question: '4', answer: '3'},
-            { question: '5', answer: '2'},
-            { question: '6', answer: '1'},
-        ],
+        cards: [],
         questionsAnsweredCount: 1,
         correctAnswersCount: 0,
         currentQuestionIndex: null,
@@ -28,7 +21,8 @@ export default class NewCard extends Component {
         this.setState((state) => ({
             ...state,
             questionsCount: state.cards.length,
-            currentQuestionIndex: 0
+            currentQuestionIndex: 0,
+            cards: this.props.navigation.state.params.questions
         }))
     }
 
