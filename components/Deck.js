@@ -8,7 +8,7 @@ export default class DeckList extends Component {
 
     handleQuizStart = () => {
         if(this.props.navigation.state.params.deck.questions.length <= 0) {
-            this.props.navigation.navigate('NewCard', { deckId: this.props.navigation.state.params.deckTitle})
+            this.props.navigation.navigate('NewCard', { deckId: this.props.navigation.state.params.deck.title})
         } else {
             this.props.navigation.navigate('Quiz', { questions: this.props.navigation.state.params.deck.questions})
         }
@@ -19,7 +19,7 @@ export default class DeckList extends Component {
         return(
             <View>
                 <Text>Deck</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckId: this.props.navigation.state.params.deckTitle})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckId: this.props.navigation.state.params.deck.title})}>
                     <Text>Add new card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.handleQuizStart}>
