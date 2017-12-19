@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 
-import { getDecks } from '../storage/DAL'
+import { getDecks } from '../api'
 
 export default class DeckList extends Component {
     renderItem = ({item}) => {

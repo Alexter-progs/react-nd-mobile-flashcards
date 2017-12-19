@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 
-import { saveDeck } from '../storage/DAL'
+import { saveDeck } from '../api'
 
 export default class NewDeck extends Component {
     state = {

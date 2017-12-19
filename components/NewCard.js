@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 
-import { addCardToDeck } from '../storage/DAL'
+import { addCardToDeck } from '../api'
 
 export default class NewCard extends Component {
     static navigationOptions = {

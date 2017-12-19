@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { getDeck } from '../storage/DAL';
+import { getDeck } from '../api';
 
 export default class DeckList extends Component {
     static navigationOptions = ({ navigation }) => ({
