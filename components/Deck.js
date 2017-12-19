@@ -1,17 +1,35 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+import { getDeck } from '../storage/DAL';
 
 export default class DeckList extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.params.deck.title
     });
 
+    state = {
+        deck: {}
+    }
+
     handleQuizStart = () => {
-        if(this.props.navigation.state.params.deck.questions.length <= 0) {
-            this.props.navigation.navigate('NewCard', { deckId: this.props.navigation.state.params.deck.title})
+        if(this.state.deck.questions.length <= 0) {
+            this.props.navigation.navigate('NewCard', { deckId: this.state.deck.title})
         } else {
-            this.props.navigation.navigate('Quiz', { questions: this.props.navigation.state.params.deck.questions})
+            this.props.navigation.navigate('Quiz', { questions: this.state.deck.questions})
         }
+    }
+
+    componentDidMount() {
+        getDeck(this.props.navigation.state.params.deck.title).then(deck => {
+            console.log(deck)
+            this.setState(() => ({
+                deck
+            }))
+        })
+    }
+
+    componentWillUpdate() {
+        console.log('Updating Deck')
     }
 
     render() {
@@ -19,7 +37,7 @@ export default class DeckList extends Component {
         return(
             <View>
                 <Text>Deck</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckId: this.props.navigation.state.params.deck.title})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckId: this.state.deck.title})}>
                     <Text>Add new card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.handleQuizStart}>
