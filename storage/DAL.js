@@ -21,7 +21,7 @@ export function getDecks() {
 
 export function addCardToDeck(key, card) {
     getDecks(key).then(decks => {
-        AsyncStorage.mergeItem(FLASH_CARDS_APP_KEY, JSON({
+        AsyncStorage.mergeItem(FLASH_CARDS_APP_KEY, JSON.stringify({
             [key]: {
                 ...decks[key],
                 questions: [{
