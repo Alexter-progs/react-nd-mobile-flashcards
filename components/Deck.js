@@ -19,7 +19,8 @@ import { connect } from 'react-redux'
 
         return(
             <View>
-                <Text>Deck</Text>
+                <Text>{this.props.deck.title}</Text>
+                <Text>{this.props.deck.questions.length}</Text>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckTitle: this.props.deck.title})}>
                     <Text>Add new card</Text>
                 </TouchableOpacity>
