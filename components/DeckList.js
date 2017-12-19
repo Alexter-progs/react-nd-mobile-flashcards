@@ -5,10 +5,9 @@ import { getDecks } from '../storage/DAL'
 
 export default class DeckList extends Component {
     renderItem = ({item}) => {
-        console.log(item)
         return(
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.title})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deck: item})}>
                     <View style={{flex: 1, height: 50, alignItems: 'center', borderStyle: 'solid', borderBottomWidth: 1, borderColor: '#123321', paddingTop: 50, paddingBottom: 50}}>
                         <Text>{item.title}</Text>
                         <Text>{item.questions.length} cards</Text>
