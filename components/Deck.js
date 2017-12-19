@@ -1,35 +1,18 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { getDeck } from '../api';
+import { connect } from 'react-redux'
 
-export default class DeckList extends Component {
+ class Deck extends Component {
     static navigationOptions = ({ navigation }) => ({
-        title: navigation.state.params.deck.title
+        title: navigation.state.params.deckTitle
     });
 
-    state = {
-        deck: {}
-    }
-
     handleQuizStart = () => {
-        if(this.state.deck.questions.length <= 0) {
-            this.props.navigation.navigate('NewCard', { deckId: this.state.deck.title})
+        if(this.props.deck.questions.length <= 0) {
+            this.props.navigation.navigate('NewCard', { deckTitle: this.props.deck.title})
         } else {
-            this.props.navigation.navigate('Quiz', { questions: this.state.deck.questions})
+            this.props.navigation.navigate('Quiz', { deckTitle: this.props.deck.title})
         }
-    }
-
-    componentDidMount() {
-        getDeck(this.props.navigation.state.params.deck.title).then(deck => {
-            console.log(deck)
-            this.setState(() => ({
-                deck
-            }))
-        })
-    }
-
-    componentWillUpdate() {
-        console.log('Updating Deck')
     }
 
     render() {
@@ -37,7 +20,7 @@ export default class DeckList extends Component {
         return(
             <View>
                 <Text>Deck</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckId: this.state.deck.title})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', { deckTitle: this.props.deck.title})}>
                     <Text>Add new card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.handleQuizStart}>
@@ -47,3 +30,11 @@ export default class DeckList extends Component {
         )
     }
 }
+
+mapStateToProps = (state, props) => {
+    return {
+        deck: state[props.navigation.state.params.deckTitle]
+    }
+}
+
+export default connect(mapStateToProps)(Deck)

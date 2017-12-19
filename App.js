@@ -5,6 +5,11 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 
 import { Constants } from 'expo'
 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
+import reducer from './reducers'
+
 import DeckList from "./components/DeckList";
 import NewDeck from "./components/NewDeck";
 import Deck from "./components/Deck";
@@ -31,7 +36,6 @@ const Tabs = TabNavigator({
         header: null
     },
     tabBarOptions: {
-        //activeTintColor: '#f26f28',
         style: {
             height: 56,
             shadowColor: 'rgba(0,0,0,0.24)',
@@ -47,16 +51,10 @@ const Tabs = TabNavigator({
 
 const MainNavigator = StackNavigator({
     Home: {
-        screen: Tabs,
+        screen: Tabs
     },
     Deck: {
-        screen: Deck,
-        navigationOptions: {
-            //headerTintColor: white,
-            //headerStyle: {
-            //    backgroundColor: purple
-            //}
-        }
+        screen: Deck
     },
     NewCard: {
         screen: NewCard
@@ -66,15 +64,19 @@ const MainNavigator = StackNavigator({
     }
 })
 
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-          <View style={{height: Constants.statusBarHeight}}>
-              <StatusBar translucent barStyle='dark-content' backgroundColor='#434516'/>
-          </View>
-          <MainNavigator/>
-      </View>
+        <Provider store={store}>
+            <View style={styles.container}>
+                <View style={{height: Constants.statusBarHeight}}>
+                    <StatusBar translucent barStyle='dark-content' backgroundColor='#434516'/>
+                </View>
+                <MainNavigator/>
+            </View>
+        </Provider>
     );
   }
 }

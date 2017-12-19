@@ -1,91 +1,85 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 
 import QuizItem from './QuizItem'
 
-export default class NewCard extends Component {
+class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Quiz'
     });
 
     state = {
-        questionsCount: 0,
-        cards: [],
-        questionsAnsweredCount: 1,
-        correctAnswersCount: 0,
-        currentQuestionIndex: null,
+        currentQuestionNumber: 1,
+        correctAnswersAmount: 0,
+        currentQuestionIndex: 0,
         isQuizCompleted: false
     }
 
-    componentDidMount() {
-        const questions = this.props.navigation.state.params.questions
-        this.setState((state) => ({
-            ...state,
-            questionsCount: questions.length,
-            currentQuestionIndex: 0,
-            cards: questions
-        }))
-    }
-
     handleCorrectAnswer = () => {
-        const newQuestionAnsweredCount = this.state.questionsAnsweredCount + 1
-        const newCurrentQuestionIndex = this.state.currentQuestionIndex + 1
-        const newCorrectAnswersCount = this.state.correctAnswersCount + 1
+        const questionsAmount = this.props.questions.length
 
-        if(newCurrentQuestionIndex >= this.state.questionsCount){
+        const newCurrentQuestionNumber = this.state.currentQuestionNumber + 1
+        const newCurrentQuestionIndex = this.state.currentQuestionIndex + 1
+        const newCorrectAnswersAmount = this.state.correctAnswersAmount + 1
+
+        if(newCurrentQuestionIndex >= questionsAmount){
             this.setState((state) => ({
                 ...state,
                 isQuizCompleted: true,
-                correctAnswersCount: newCorrectAnswersCount
+                correctAnswersAmount: newCorrectAnswersAmount
             }))
         } else {
             this.setState((state) => ({
                 ...state,
                 currentQuestionIndex: newCurrentQuestionIndex,
-                questionsAnsweredCount: newQuestionAnsweredCount,
-                correctAnswersCount: newCorrectAnswersCount
+                currentQuestionNumber: newCurrentQuestionNumber,
+                correctAnswersAmount: newCorrectAnswersAmount
             }))
         }
     }
 
     handleIncorrectAnswer = () => {
-        const newQuestionAnsweredCount = this.state.questionsAnsweredCount + 1
+        const questionsAmount = this.props.questions.length
+
+        const newCurrentQuestionNumber = this.state.currentQuestionNumber + 1
         const newCurrentQuestionIndex = this.state.currentQuestionIndex + 1
 
-        if(newCurrentQuestionIndex >= this.state.questionsCount){
+        if(newCurrentQuestionIndex >= questionsAmount){
             this.setState((state) => ({
                 ...state,
-                isQuizCompleted: true,
-                questionsAnsweredCount: newQuestionAnsweredCount
+                isQuizCompleted: true
             }))
         } else {
             this.setState((state) => ({
                 ...state,
                 currentQuestionIndex: newCurrentQuestionIndex,
-                questionsAnsweredCount: newQuestionAnsweredCount
+                currentQuestionNumber: newCurrentQuestionNumber
             }))
         }
     }
 
     render() {
+        const questionsAmount = this.props.questions.length
+
         if(this.state.isQuizCompleted) {
-            const answerPercentile = ((this.state.correctAnswersCount / this.state.questionsCount) * 100).toFixed(1)
+            const answerPercentile = ((this.state.correctAnswersAmount / questionsAmount) * 100).toFixed(1)
             return(
                 <View>
-                    <Text>Questions answered count: {this.state.questionsAnsweredCount}</Text>
-                    <Text>Correct answers count: {this.state.correctAnswersCount}</Text>
+                    <Text>Questions answered count: {this.state.currentQuestionNumber}</Text>
+                    <Text>Correct answers count: {this.state.correctAnswersAmount}</Text>
                     <Text>Current question index: {this.state.currentQuestionIndex}</Text>
                     <Text>Is quiz completed: {this.state.isQuizCompleted}</Text>
-                    <Text>Questions count: {this.state.questionsCount}</Text>
+                    <Text>Questions count: {this.state.questionsAmount}</Text>
                     <Text>{answerPercentile}%</Text>
                 </View>
             )
         }
         return(
             <View style={{flex: 1, alignItems: 'center'}}>
-                <View style={{flex:1, alignItems: 'flex-start', flexDirection: 'row'}}><Text>{this.state.questionsAnsweredCount}/{this.state.questionsCount}</Text></View>
+                <View style={{flex:1, alignItems: 'flex-start', flexDirection: 'row'}}><Text>{this.state.currentQuestionNumber}/{questionsAmount}</Text></View>
                 <View style={{flex: 1}}>
-                    <QuizItem quizItem={this.state.cards[this.state.currentQuestionIndex]}/>
+                    <QuizItem quizItem={this.props.questions[this.state.currentQuestionIndex]}/>
                     <TouchableOpacity onPress={this.handleCorrectAnswer}>
                         <Text>Correct</Text>
                     </TouchableOpacity>
@@ -98,3 +92,9 @@ export default class NewCard extends Component {
         )
     }
 }
+
+mapStateToProps = (state, props) => ({
+    questions: state[props.navigation.state.params.deckTitle].questions
+})
+
+export default connect(mapStateToProps)(Quiz)

@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 
-import { getDecks } from '../api'
+import { getDecks, removeDecks } from '../api'
+import { receiveDecks } from '../actions'
 
-export default class DeckList extends Component {
+class DeckList extends Component {
     renderItem = ({item}) => {
         return(
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deck: item})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.title})}>
                     <View style={{flex: 1, height: 50, alignItems: 'center', borderStyle: 'solid', borderBottomWidth: 1, borderColor: '#123321', paddingTop: 50, paddingBottom: 50}}>
                         <Text>{item.title}</Text>
                         <Text>{item.questions.length} cards</Text>
@@ -17,28 +19,16 @@ export default class DeckList extends Component {
         )
     }
 
-    state = {
-        decks: []
-    }
-
     componentDidMount() {
         getDecks().then(decks => {
-            let keys = Object.keys(decks)
-
-            let mappedDecks = keys.map((key) => {
-                //Virtualized list warns if no key prop is presented on the data object for flat list
-                decks[key].key = key
-                return decks[key]
-            })
-
-            this.setState(() => ({
-                decks: mappedDecks
-            }))
+            console.log(decks);
+            return this.props.receiveDecks(decks)
         })
     }
 
     render() {
-        if(this.state.decks.length === 0) {
+        const decks = this.props.decks
+        if(!decks || decks.length === 0) {
             return (
                 <View>
                     <Text>No decks</Text>
@@ -47,8 +37,20 @@ export default class DeckList extends Component {
         }
         return(
             <View style={{flex: 1}}>
-                <FlatList data={this.state.decks} renderItem={this.renderItem}/>
+                <FlatList data={this.props.decks} keyExtractor={item => item.title} renderItem={this.renderItem}/>
             </View>
         )
     }
 }
+
+mapStateToProps = (state) => ({
+    decks: Object.keys(state).map(key => {
+        return state[key]
+    })
+})
+
+mapDispatchToProps = (dispatch) => ({
+    receiveDecks: (decks) => dispatch(receiveDecks(decks))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)

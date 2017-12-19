@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { connect } from 'react-redux'
 
 import { addCardToDeck } from '../api'
+import { addCard } from '../actions/index';
 
-export default class NewCard extends Component {
+class NewCard extends Component {
     static navigationOptions = {
         title: 'Add Card'
     }
@@ -14,14 +16,18 @@ export default class NewCard extends Component {
     }
 
     saveCard = () => {
-        const deckTitle = this.props.navigation.state.params.deckId
+        const deckTitle = this.props.navigation.state.params.deckTitle
         const card = {
             question: this.state.question,
             answer: this.state.answer
         }
+        console.log(deckTitle, card)
     
-        addCardToDeck(deckTitle, card)
-        this.props.navigation.goBack()
+        addCardToDeck(deckTitle, card).then(() => {
+            return this.props.addCard(deckTitle, card)
+        }).then(() => {
+            this.props.navigation.goBack()
+        })
     }
 
     render() {
@@ -39,3 +45,9 @@ export default class NewCard extends Component {
         )
     }
 }
+
+mapDispatchToProps = (dispatch) => ({
+    addCard: (deckTitle, card) => dispatch(addCard(deckTitle, card))
+})
+
+export default connect(null, mapDispatchToProps)(NewCard)

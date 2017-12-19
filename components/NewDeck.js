@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { connect } from 'react-redux'
+import { addDeck } from '../actions'
 
 import { saveDeck } from '../api'
 
-export default class NewDeck extends Component {
+class NewDeck extends Component {
     state = {
         deckTitle: ''
     }
 
     saveDeck = () => {
-        saveDeck(this.state.deckTitle)
-        this.props.navigation.navigate('Home')
+        const title = this.state.deckTitle
+
+        saveDeck(title).then(() => {
+            return this.props.addDeck(title)
+        }).then(() => {
+            this.props.navigation.navigate('Home')
+        })
+        
     }
 
     render() {
@@ -25,3 +33,9 @@ export default class NewDeck extends Component {
         )
     }
 }
+
+mapDispatchToProps = (dispatch) => ({
+    addDeck: (title) => dispatch(addDeck(title))
+})
+
+export default connect(null, mapDispatchToProps)(NewDeck)
