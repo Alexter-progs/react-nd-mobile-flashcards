@@ -54,7 +54,11 @@ const MainNavigator = StackNavigator({
         screen: Tabs
     },
     Deck: {
-        screen: Deck
+        screen: Deck,
+        navigationOptions: ({navigation}) => ({
+            headerTintColor: '#fff',
+            headerStyle: styles.headerStyle
+        })
     },
     NewCard: {
         screen: NewCard
@@ -72,7 +76,7 @@ export default class App extends React.Component {
         <Provider store={store}>
             <View style={styles.container}>
                 <View style={{height: Constants.statusBarHeight}}>
-                    <StatusBar translucent barStyle='dark-content' backgroundColor='#434516'/>
+                    <StatusBar translucent barStyle='dark-content'/>
                 </View>
                 <MainNavigator/>
             </View>
@@ -85,4 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  headerStyle: {
+      backgroundColor: '#000'
+  }
 });
