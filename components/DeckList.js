@@ -11,8 +11,8 @@ class DeckList extends Component {
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.title})}>
                     <View style={styles.deckItem}>
-                        <Text>{item.title}</Text>
-                        <Text>{item.questions.length} cards</Text>
+                        <Text style={styles.title}>{item.title}</Text>
+                        <Text style={styles.cardsCount}>{item.questions.length} cards</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -53,9 +53,15 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         borderStyle: 'solid',
          borderBottomWidth: 1, 
-         borderColor: '#123321', 
+         borderColor: '#d3d3d3', 
          paddingTop: 50, 
          paddingBottom: 50
+    },
+    title: {
+        fontSize: 20
+    },
+    cardsCount: {
+        color: '#a9a9a9'
     }
 })
 
