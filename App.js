@@ -83,8 +83,8 @@ export default class App extends React.Component {
     return (
         <Provider store={store}>
             <View style={styles.container}>
-                <View style={{height: Constants.statusBarHeight}}>
-                    <StatusBar translucent barStyle='dark-content'/>
+                <View style={styles.statusBar}>
+                    <StatusBar translucent backgroundColor={styles.statusBar.backgroundColor} barStyle='light-content'/>
                 </View>
                 <MainNavigator/>
             </View>
@@ -96,6 +96,10 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  statusBar: {
+    height: Constants.statusBarHeight,
+    backgroundColor: '#000'
   },
   headerStyle: {
       backgroundColor: '#000'
