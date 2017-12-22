@@ -61,10 +61,18 @@ const MainNavigator = StackNavigator({
         })
     },
     NewCard: {
-        screen: NewCard
+        screen: NewCard,
+        navigationOptions: ({navigation}) => ({
+            headerTintColor: '#fff',
+            headerStyle: styles.headerStyle
+        })
     },
     Quiz: {
-        screen: Quiz
+        screen: Quiz,
+        navigationOptions: ({navigation}) => ({
+            headerTintColor: '#fff',
+            headerStyle: styles.headerStyle
+        })
     }
 })
 
