@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 import { getDecks, removeDecks } from '../api'
@@ -10,7 +10,7 @@ class DeckList extends Component {
         return(
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.title})}>
-                    <View style={{flex: 1, height: 50, alignItems: 'center', borderStyle: 'solid', borderBottomWidth: 1, borderColor: '#123321', paddingTop: 50, paddingBottom: 50}}>
+                    <View style={styles.deckItem}>
                         <Text>{item.title}</Text>
                         <Text>{item.questions.length} cards</Text>
                     </View>
@@ -36,12 +36,28 @@ class DeckList extends Component {
             )
         }
         return(
-            <View style={{flex: 1}}>
+            <View style={styles.container}>
                 <FlatList data={this.props.decks} keyExtractor={item => item.title} renderItem={this.renderItem}/>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    deckItem: {
+        flex: 1, 
+        height: 50, 
+        alignItems: 'center', 
+        borderStyle: 'solid',
+         borderBottomWidth: 1, 
+         borderColor: '#123321', 
+         paddingTop: 50, 
+         paddingBottom: 50
+    }
+})
 
 mapStateToProps = (state) => ({
     decks: Object.keys(state).map(key => {

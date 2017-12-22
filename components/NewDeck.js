@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 
@@ -25,7 +25,7 @@ class NewDeck extends Component {
         return(
             <View>
                 <Text>What is the title of your new deck</Text>
-                <TextInput style={{width: 200, height: 44, padding: 8, borderWidth: 1, margin: 50, borderColor: '#757575'}} value={this.state.text} onChangeText={(deckTitle) => this.setState({deckTitle})} placeholderTextColor='#4ac431'/>
+                <TextInput style={styles.textInput} value={this.state.text} onChangeText={(deckTitle) => this.setState({deckTitle})}/>
                 <TouchableOpacity onPress={this.saveDeck}>
                     <Text>Submit</Text>
                 </TouchableOpacity>
@@ -33,6 +33,16 @@ class NewDeck extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    textInput: {
+        width: 200, 
+        height: 44, 
+        padding: 8, 
+        borderWidth: 1,
+        margin: 50, 
+        borderColor: '#757575'}
+})
 
 mapDispatchToProps = (dispatch) => ({
     addDeck: (title) => dispatch(addDeck(title))

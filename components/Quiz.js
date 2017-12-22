@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 import QuizItem from './QuizItem'
@@ -91,9 +91,9 @@ class Quiz extends Component {
             )
         }
         return(
-            <View style={{flex: 1, alignItems: 'center'}}>
-                <View style={{flex:1, alignItems: 'flex-start', flexDirection: 'row'}}><Text>{this.state.currentQuestionNumber}/{questionsAmount}</Text></View>
-                <View style={{flex: 1}}>
+            <View style={styles.container}>
+                <View style={styles.innerContainer}><Text>{this.state.currentQuestionNumber}/{questionsAmount}</Text></View>
+                <View style={styles.container}>
                     <QuizItem quizItem={this.props.questions[this.state.currentQuestionIndex]}/>
                     <TouchableOpacity onPress={this.handleCorrectAnswer}>
                         <Text>Correct</Text>
@@ -107,6 +107,18 @@ class Quiz extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        alignItems: 'center'
+    },
+    innerContainer: {
+        flex:1, 
+        alignItems: 'flex-start', 
+        flexDirection: 'row'
+    }
+})
 
 mapStateToProps = (state, props) => ({
     questions: state[props.navigation.state.params.deckTitle].questions

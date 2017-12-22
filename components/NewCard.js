@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 import { addCardToDeck } from '../api'
@@ -33,9 +33,9 @@ class NewCard extends Component {
     render() {
         return(
             <View>
-                <View style={{flex: 1, alignItems: 'center'}}>
-                    <TextInput style={{width: 200, height: 44, borderWidth: 1, marginVertical: 10, borderColor: '#757575'}} placeholder='Enter question' value={this.state.question} onChangeText={(question) => this.setState({question})} placeholderTextColor='#4ac431'/>
-                    <TextInput style={{width: 200, height: 44, borderWidth: 1, marginVertical: 10, borderColor: '#757575'}} placeholder='Enter answer' value={this.state.answer} onChangeText={(answer) => this.setState({answer})} placeholderTextColor='#4ac431'/>
+                <View style={styles.container}>
+                    <TextInput style={styles.textInput} placeholder='Enter question' value={this.state.question} onChangeText={(question) => this.setState({question})}/>
+                    <TextInput style={styles.textInput} placeholder='Enter answer' value={this.state.answer} onChangeText={(answer) => this.setState({answer})}/>
                     
                     <TouchableOpacity onPress={this.saveCard}>
                         <Text>Submit</Text>
@@ -45,6 +45,20 @@ class NewCard extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        alignItems: 'center'
+    },
+    textInput: {
+        width: 200, 
+        height: 44, 
+        borderWidth: 1, 
+        marginVertical: 10, 
+        borderColor: '#757575'
+    }
+})
 
 mapDispatchToProps = (dispatch) => ({
     addCard: (deckTitle, card) => dispatch(addCard(deckTitle, card))
