@@ -8,14 +8,11 @@ import { connect } from 'react-redux'
     });
 
     handleQuizStart = () => {
-        if(this.props.deck.questions.length <= 0) {
-            this.props.navigation.navigate('NewCard', { deckTitle: this.props.deck.title})
-        } else {
-            this.props.navigation.navigate('Quiz', { deckTitle: this.props.deck.title})
-        }
+        this.props.navigation.navigate('Quiz', { deckTitle: this.props.deck.title})
     }
 
     render() {
+        const isQuizDisabled = this.props.deck.questions.length > 0 ? false : true
 
         return(
             <View style={styles.container}>
@@ -29,7 +26,7 @@ import { connect } from 'react-redux'
                     <TouchableOpacity style={styles.newCardBtn} onPress={() => this.props.navigation.navigate('NewCard', { deckTitle: this.props.deck.title})}>
                         <Text>Add Card</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.startQuizBtn} disabled={this.props.deck.questions.length > 0 ? false : true} onPress={this.handleQuizStart}>
+                    <TouchableOpacity style={[styles.startQuizBtn, {opacity: isQuizDisabled ? 0.2 : 1}]} disabled={isQuizDisabled} onPress={this.handleQuizStart}>
                         <Text style={styles.startQuizBtnText}>Start Quiz</Text>
                     </TouchableOpacity>
                 </View>
