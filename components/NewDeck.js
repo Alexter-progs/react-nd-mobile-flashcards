@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 
@@ -23,25 +23,50 @@ class NewDeck extends Component {
 
     render() {
         return(
-            <View>
-                <Text>What is the title of your new deck</Text>
-                <TextInput style={styles.textInput} value={this.state.text} onChangeText={(deckTitle) => this.setState({deckTitle})}/>
-                <TouchableOpacity onPress={this.saveDeck}>
-                    <Text>Submit</Text>
+            <KeyboardAvoidingView style={styles.container} behavior='padding'>
+                <View>
+                    <Text style={styles.text}>What is the title of your new deck?</Text>
+                </View>
+                <TextInput style={styles.textInput} placeholder='Deck Title' value={this.state.text} onChangeText={(deckTitle) => this.setState({deckTitle})}/>
+                <TouchableOpacity style={styles.submitBtn} onPress={this.saveDeck}>
+                    <Text style={styles.submitBtnText}>Submit</Text>
                 </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     textInput: {
-        width: 200, 
+        width: 250, 
         height: 44, 
         padding: 8, 
         borderWidth: 1,
+        borderRadius: 10,
         margin: 50, 
-        borderColor: '#757575'}
+        borderColor: '#757575'
+    },
+    text: {
+        fontSize: 20,
+    },
+    submitBtn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 125,
+        height: 50,
+        backgroundColor: '#000',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#000'
+    },
+    submitBtnText: {
+        color: '#fff'
+    }
 })
 
 mapDispatchToProps = (dispatch) => ({
