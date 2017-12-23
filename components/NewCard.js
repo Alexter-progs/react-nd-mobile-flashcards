@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 
 import { addCardToDeck } from '../api'
@@ -21,7 +21,6 @@ class NewCard extends Component {
             question: this.state.question,
             answer: this.state.answer
         }
-        console.log(deckTitle, card)
     
         addCardToDeck(deckTitle, card).then(() => {
             return this.props.addCard(deckTitle, card)
@@ -32,31 +31,44 @@ class NewCard extends Component {
 
     render() {
         return(
-            <View>
-                <View style={styles.container}>
-                    <TextInput style={styles.textInput} placeholder='Enter question' value={this.state.question} onChangeText={(question) => this.setState({question})}/>
-                    <TextInput style={styles.textInput} placeholder='Enter answer' value={this.state.answer} onChangeText={(answer) => this.setState({answer})}/>
-                    
-                    <TouchableOpacity onPress={this.saveCard}>
-                        <Text>Submit</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <KeyboardAvoidingView style={styles.container} behavior='padding'>
+                <TextInput style={styles.textInput} placeholder='Enter question' value={this.state.question} onChangeText={(question) => this.setState({question})}/>
+                <TextInput style={styles.textInput} placeholder='Enter answer' value={this.state.answer} onChangeText={(answer) => this.setState({answer})}/>
+                
+                <TouchableOpacity style={styles.submitBtn} onPress={this.saveCard}>
+                    <Text style={styles.text}>Submit</Text>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        alignItems: 'center'
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     textInput: {
-        width: 200, 
+        width: 275, 
         height: 44, 
         borderWidth: 1, 
+        borderRadius: 10,
         marginVertical: 10, 
         borderColor: '#757575'
+    },
+    submitBtn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 125,
+        height: 50,
+        backgroundColor: '#000',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#000'
+    },
+    text: {
+        color: '#fff'
     }
 })
 
