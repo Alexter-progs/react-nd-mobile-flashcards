@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { clearLocalNotifications, setLocalNotification } from '../utils/helpers'
 
  class Deck extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -8,6 +9,7 @@ import { connect } from 'react-redux'
     });
 
     handleQuizStart = () => {
+        clearLocalNotifications().then(setLocalNotification)
         this.props.navigation.navigate('Quiz', { deckTitle: this.props.deck.title})
     }
 

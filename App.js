@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -10,11 +10,13 @@ import { Provider } from 'react-redux'
 
 import reducer from './reducers'
 
-import DeckList from "./components/DeckList";
-import NewDeck from "./components/NewDeck";
-import Deck from "./components/Deck";
+import DeckList from "./components/DeckList"
+import NewDeck from "./components/NewDeck"
+import Deck from "./components/Deck"
 import NewCard from './components/NewCard'
 import Quiz from './components/Quiz'
+
+import { setLocalNotification } from './utils/helpers'
 
 const Tabs = TabNavigator({
     DeckList: {
@@ -79,6 +81,9 @@ const MainNavigator = StackNavigator({
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export default class App extends React.Component {
+    componentDidMount() {
+        setLocalNotification()
+    }
   render() {
     return (
         <Provider store={store}>
