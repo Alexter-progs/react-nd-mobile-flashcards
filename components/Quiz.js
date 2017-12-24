@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import QuizItem from './QuizItem'
 
+import { clearLocalNotifications, setLocalNotification } from '../utils/helpers'
+
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Quiz'
@@ -26,9 +28,9 @@ class Quiz extends Component {
         if(newCurrentQuestionIndex >= questionsAmount){
             this.setState((state) => ({
                 ...state,
-                isQuizCompleted: true,
                 correctAnswersAmount: newCorrectAnswersAmount
             }))
+            this.handleQuizCompletion()
         } else {
             this.setState((state) => ({
                 ...state,
@@ -46,10 +48,7 @@ class Quiz extends Component {
         const newCurrentQuestionIndex = this.state.currentQuestionIndex + 1
 
         if(newCurrentQuestionIndex >= questionsAmount){
-            this.setState((state) => ({
-                ...state,
-                isQuizCompleted: true
-            }))
+            this.handleQuizCompletion()
         } else {
             this.setState((state) => ({
                 ...state,
@@ -57,6 +56,15 @@ class Quiz extends Component {
                 currentQuestionNumber: newCurrentQuestionNumber
             }))
         }
+    }
+
+    handleQuizCompletion = () => {
+        this.setState((state) => ({
+            ...state,
+            isQuizCompleted: true
+        }))
+
+        clearLocalNotifications().then(setLocalNotification)
     }
 
     restartQuiz = () => {
