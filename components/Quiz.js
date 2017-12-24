@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import QuizItem from './QuizItem'
 
 import { clearLocalNotifications, setLocalNotification } from '../utils/helpers'
-import { gray, white, green, red } from '../utils/colors'
+import { gray, white, green, red, black } from '../utils/colors'
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -83,18 +83,13 @@ class Quiz extends Component {
         if(this.state.isQuizCompleted) {
             const answerPercentile = ((this.state.correctAnswersAmount / questionsAmount) * 100).toFixed(1)
             return(
-                <View>
-                    <Text>Questions answered count: {this.state.currentQuestionNumber}</Text>
-                    <Text>Correct answers count: {this.state.correctAnswersAmount}</Text>
-                    <Text>Current question index: {this.state.currentQuestionIndex}</Text>
-                    <Text>Is quiz completed: {this.state.isQuizCompleted}</Text>
-                    <Text>Questions count: {this.state.questionsAmount}</Text>
-                    <Text>{answerPercentile}%</Text>
-                    <TouchableOpacity onPress={this.restartQuiz}>
+                <View style={styles.resultContainer}>
+                    <Text style={styles.answerPercentile}>Your score: {answerPercentile}%</Text>
+                    <TouchableOpacity style={styles.restartQuizBtn} onPress={this.restartQuiz}>
                         <Text>Restart quiz</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {this.props.navigation.goBack()}}>
-                        <Text>Go back</Text>
+                    <TouchableOpacity style={styles.goBackBtn} onPress={() => {this.props.navigation.goBack()}}>
+                        <Text style={styles.goBackText}>Go back</Text>
                     </TouchableOpacity>
                 </View>
             )
@@ -142,8 +137,40 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 10
     },
+    resultContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    restartQuizBtn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 150,
+        height: 50,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: black,
+        marginBottom: 10,
+    },
+    goBackBtn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 150,
+        height: 50,
+        backgroundColor: black,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: black
+    },
+    goBackText: {
+        color: white
+    },
     submitText: {
         color: white
+    },
+    answerPercentile: {
+        fontSize: 20,
+        marginBottom: 10
     }
 })
 
