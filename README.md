@@ -13,6 +13,8 @@ This project met the following requirements:
 
 More specific requirements can be found [here](https://review.udacity.com/#!/rubrics/1021/view)
 
+This app was tested on iOS platform only
+
 
 ###How to install
 ####Prerequesites: 
