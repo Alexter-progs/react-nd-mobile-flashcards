@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
+import { red } from '../utils/colors'
+
 export default class QuizItem extends Component {
     state = {
         isShowAnswer: false
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     flipCardText: {
-        color: '#dd1919',
+        color: red,
         fontWeight: 'bold'
     },
     flipCardBtn: {

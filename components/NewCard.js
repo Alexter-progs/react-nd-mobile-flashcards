@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, KeyboardAvoidingVi
 import { connect } from 'react-redux'
 
 import { addCardToDeck } from '../api'
-import { addCard } from '../actions/index';
+import { addCard } from '../actions/index'
+import { gray, black, white } from '../utils/colors'
 
 class NewCard extends Component {
     static navigationOptions = {
@@ -55,20 +56,20 @@ const styles = StyleSheet.create({
         borderWidth: 1, 
         borderRadius: 10,
         marginVertical: 10, 
-        borderColor: '#757575'
+        borderColor: gray
     },
     submitBtn: {
         alignItems: 'center',
         justifyContent: 'center',
         width: 125,
         height: 50,
-        backgroundColor: '#000',
+        backgroundColor: black,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#000'
+        borderColor: black
     },
     text: {
-        color: '#fff'
+        color: white
     }
 })
 

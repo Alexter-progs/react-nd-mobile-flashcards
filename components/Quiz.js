@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import QuizItem from './QuizItem'
 
 import { clearLocalNotifications, setLocalNotification } from '../utils/helpers'
+import { gray, white, green, red } from '../utils/colors'
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -110,10 +111,10 @@ class Quiz extends Component {
                 </View>
                     
                 <View>
-                    <TouchableOpacity style={[styles.submitAnswerButton, { backgroundColor: '#008000'}]} onPress={this.handleCorrectAnswer}>
+                    <TouchableOpacity style={[styles.submitAnswerButton, { backgroundColor: green}]} onPress={this.handleCorrectAnswer}>
                         <Text style={styles.submitText}>Correct</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.submitAnswerButton, { backgroundColor: '#dd1919'}]} onPress={this.handleIncorrectAnswer}>
+                    <TouchableOpacity style={[styles.submitAnswerButton, { backgroundColor: red}]} onPress={this.handleIncorrectAnswer}>
                         <Text style={styles.submitText}>Incorrect</Text>
                     </TouchableOpacity>
                 </View>
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     submitText: {
-        color: 'white'
+        color: white
     }
 })
 

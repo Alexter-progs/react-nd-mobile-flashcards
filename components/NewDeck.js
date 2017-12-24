@@ -5,6 +5,8 @@ import { addDeck } from '../actions'
 
 import { saveDeck } from '../api'
 
+import { gray, black, white } from '../utils/colors'
+
 class NewDeck extends Component {
     state = {
         deckTitle: ''
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         margin: 50, 
-        borderColor: '#757575'
+        borderColor: gray
     },
     text: {
         fontSize: 20,
@@ -59,13 +61,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 125,
         height: 50,
-        backgroundColor: '#000',
+        backgroundColor: black,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#000'
+        borderColor: black
     },
     submitBtnText: {
-        color: '#fff'
+        color: white
     }
 })
 

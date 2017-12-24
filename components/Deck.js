@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
+import { gray, black, white } from '../utils/colors'
+
  class Deck extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.params.deckTitle
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     cardsCount: {
-        color: '#a9a9a9'
+        color: gray
     },
     newCardBtn: {
         alignItems: 'center',
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#000',
+        borderColor: black,
         marginBottom: 10
     },
     startQuizBtn: {
@@ -61,13 +63,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 150,
         height: 50,
-        backgroundColor: '#000',
+        backgroundColor: black,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#000'
+        borderColor: black
     },
     startQuizBtnText: {
-        color: '#fff'
+        color: white
     },
     textContainer: {
         flex: 1,

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import { getDecks, removeDecks } from '../api'
 import { receiveDecks } from '../actions'
+import { gray, lightGray } from '../utils/colors'
 
 class DeckList extends Component {
     renderItem = ({item}) => {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         borderStyle: 'solid',
          borderBottomWidth: 1, 
-         borderColor: '#d3d3d3', 
+         borderColor: lightGray, 
          paddingTop: 50, 
          paddingBottom: 50
     },
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     cardsCount: {
-        color: '#a9a9a9'
+        color: gray
     }
 })
 
