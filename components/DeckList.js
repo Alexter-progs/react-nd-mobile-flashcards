@@ -21,7 +21,6 @@ class DeckList extends Component {
 
     componentDidMount() {
         getDecks().then(decks => {
-            console.log(decks);
             return this.props.receiveDecks(decks)
         })
     }
