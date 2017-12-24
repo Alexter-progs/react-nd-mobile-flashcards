@@ -100,15 +100,21 @@ class Quiz extends Component {
         }
         return(
             <View style={styles.container}>
-                <View style={styles.innerContainer}><Text>{this.state.currentQuestionNumber}/{questionsAmount}</Text></View>
-                <View style={styles.container}>
-                    <QuizItem quizItem={this.props.questions[this.state.currentQuestionIndex]}/>
-                    <TouchableOpacity onPress={this.handleCorrectAnswer}>
-                        <Text>Correct</Text>
-                    </TouchableOpacity>
+                <View style={styles.quistionsCountContainer}>
+                    <Text>{this.state.currentQuestionNumber} / {questionsAmount}</Text>
+                </View>
 
-                    <TouchableOpacity onPress={this.handleIncorrectAnswer}>
-                        <Text>Incorrect</Text>
+            
+                <View>
+                    <QuizItem quizItem={this.props.questions[this.state.currentQuestionIndex]}/>
+                </View>
+                    
+                <View>
+                    <TouchableOpacity style={[styles.submitAnswerButton, { backgroundColor: '#008000'}]} onPress={this.handleCorrectAnswer}>
+                        <Text style={styles.submitText}>Correct</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.submitAnswerButton, { backgroundColor: '#dd1919'}]} onPress={this.handleIncorrectAnswer}>
+                        <Text style={styles.submitText}>Incorrect</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -118,13 +124,25 @@ class Quiz extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        alignItems: 'center'
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
-    innerContainer: {
-        flex:1, 
-        alignItems: 'flex-start', 
-        flexDirection: 'row'
+    quistionsCountContainer: {
+        marginLeft: 5,
+        marginTop: 5,
+        alignSelf: 'flex-start'
+    },
+    submitAnswerButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 200,
+        height: 50,
+        borderRadius: 10,
+        marginBottom: 10
+    },
+    submitText: {
+        color: 'white'
     }
 })
 
