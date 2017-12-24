@@ -14,21 +14,23 @@ import { gray, black, white } from '../utils/colors'
     }
 
     render() {
-        const isQuizDisabled = this.props.deck.questions.length > 0 ? false : true
+        const deckTitle = this.props.deck.title
+        const questionsLength = this.props.deck.questions.length
+        const navigate = this.props.navigation.navigate
 
         return(
             <View style={styles.container}>
                 <View style={styles.textContainer}>
                     <View style={styles.center}>
-                        <Text style={styles.title}>{this.props.deck.title}</Text>
-                        <Text style={styles.cardsCount}>{this.props.deck.questions.length} cards</Text>
+                        <Text style={styles.title}>{deckTitle}</Text>
+                        <Text style={styles.cardsCount}>{questionsLength} cards</Text>
                     </View>
                 </View>
                 <View style={[styles.buttonsContainer, {justifyContent: 'flex-end'}]}>
-                    <TouchableOpacity style={styles.newCardBtn} onPress={() => this.props.navigation.navigate('NewCard', { deckTitle: this.props.deck.title})}>
+                    <TouchableOpacity style={styles.newCardBtn} onPress={() => navigate('NewCard', { deckTitle: deckTitle})}>
                         <Text>Add Card</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.startQuizBtn, {opacity: isQuizDisabled ? 0.2 : 1}]} disabled={isQuizDisabled} onPress={this.handleQuizStart}>
+                    <TouchableOpacity style={[styles.startQuizBtn]} onPress={this.handleQuizStart}>
                         <Text style={styles.startQuizBtnText}>Start Quiz</Text>
                     </TouchableOpacity>
                 </View>
