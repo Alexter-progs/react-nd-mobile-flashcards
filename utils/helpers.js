@@ -29,12 +29,10 @@ export function setLocalNotification() {
         .then(JSON.parse)
         .then(data => {
             if(data === null) {
-                console.log('asking async')
                 Permissions.askAsync(Permissions.NOTIFICATIONS)
                     .then(permissions => {
                         if(permissions.status === 'granted') {
                             Notifications.cancelAllScheduledNotificationsAsync()
-
                             let tomorrow = new Date()
                             tomorrow.setDate(tomorrow.getDate() + 1)
                             tomorrow.setHours(20)
